@@ -1,0 +1,75 @@
+LicenPrep AI
+"Adaptive Exam Generation & Mastery Analytics Platform"
+
+1. Vision and Goals
+Turn raw textbooks, lecture notes, and guidelines into blueprint-aligned exam questions (MCQs, flashcards, cloze) in seconds.
+
+Adapt practice loops dynamically using Bayesian proficiency models and SM-2 spaced repetition.
+
+Deliver real-time progress analytics mapped to USMLE and other licensing exam blueprints.
+
+Enable faculty oversight: fast approve/flag AI-generated items.
+
+Deploy efficiently from laptop POC → cloud SaaS with minimal GPU cost.
+
+2. Learner Journey
+
+Step	Description
+Ingest	Student/faculty drops a PDF or slide deck into the system
+Generate	Fresh quiz appears automatically (MCQs, flashcards)
+Practice	Adaptive learning loop adjusts difficulty/topics
+Progress	Dashboards reveal weak areas mapped to blueprint topics
+Faculty Oversight	Educators approve, flag, or edit AI-written content
+3. Current Implementation Status
+
+Layer	Status	Notes
+Ingestion	✅ MVP Ready	OCR fallback needs improvement
+Embeddings & Vector DB	✅ Operational	MiniLM+Chroma; OpenAI fallback pending
+Retrieval	❌ Not built	k-NN + MMR planned
+Question Generation	❌ Not built	DeepSeek/vLLM RAG flow pending
+Validation Layer	❌ Not started	No self-consistency voting yet
+Adaptive Engine	❌ Not started	No spaced repetition/IRT models yet
+Analytics Service	❌ Not started	No dashboards or event capture yet
+Faculty Review Tools	❌ Not started	No approve/flag UI yet
+Cloud Deployment	🟡 Partial scaffolding	Docker/Helm/KEDA WIP
+4. Architecture Blueprint
+
+Layer	Services/Tools
+Frontend	React / Next.js, Tailwind CSS, TanStack Table
+API Gateway	FastAPI (GraphQL/REST)
+Domain Services	Ingestion, Embedding, Quiz Generation, Analytics
+Vector DB	ChromaDB (local) / future: Pinecone/Qdrant
+Persistence	SQLite (local) / future: Postgres + pgvector
+LLMs	Local LLaMA-3 or GPT-4o (cloud option)
+Infra	Docker Compose → Helm → Kubernetes (prod)
+5. POC → Production Roadmap
+
+Phase	Milestone	Target Date
+POC v0.1	Working ingestion + embedding; manual quiz testing	May 2025
+POC v0.2	Add retrieval + generation prototype (small scale)	June 2025
+POC v0.3	Basic human QA loop + blueprint tagging MVP	July 2025
+Beta v0.5	End-to-end adaptive engine with basic dashboards	August 2025
+Beta v0.6	Deploy to Fly.io / AWS Lightsail with KEDA autoscaling	September 2025
+v1.0 Launch	Add Vision-based Q-gen, VisionOS mobile flashcards	Q4 2025
+6. Key Success Metrics (POC Phase)
+
+Goal	Metric
+Question Quality	≥80% human-rated 4/5 or better
+Latency	Ingest-to-quiz under 90 seconds
+Blueprint Coverage	χ² mismatch < 5% against exam quotas
+Cost Efficiency	<$0.25 per 100 generated questions
+7. Key Risks and Mitigations
+
+Risk	Mitigation
+Item Quality Hallucination	Add GPT-4o fact-checking later
+Blueprint Drift	χ² coverage monitoring and rebalance
+GPU Cost Explosion	Smart autoscaling with KEDA
+Faculty Adoption	Build dead-simple approve/flag UI
+8. Immediate Focus Areas
+Finalize sample PDFs for ingestion (~200 pages).
+
+Decide faculty approval flow (mandatory before learner release?).
+
+Confirm GPT-4o usage budget and fallback thresholds.
+
+Choose cloud target: Fly.io vs AWS vs bare-metal.
